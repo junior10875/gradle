@@ -48,7 +48,6 @@ public class TransformationStep implements Transformation, TaskDependencyContain
 
     private final Transformer transformer;
     private final TransformerInvocationFactory transformerInvocationFactory;
-    private final ProjectStateRegistry.SafeExclusiveLock isolationLock;
     private final WorkNodeAction isolateAction;
     private final ProjectInternal owningProject;
     private final FileCollectionFingerprinterRegistry globalFingerprinterRegistry;
@@ -58,7 +57,6 @@ public class TransformationStep implements Transformation, TaskDependencyContain
         this.transformer = transformer;
         this.transformerInvocationFactory = transformerInvocationFactory;
         this.globalFingerprinterRegistry = globalFingerprinterRegistry;
-        this.isolationLock = projectRegistry.newExclusiveOperationLock();
         this.owningProject = owner.getProject();
         this.owner = owner.getModel();
         this.isolateAction = transformer.isIsolated() ? null : new WorkNodeAction() {
@@ -144,19 +142,11 @@ public class TransformationStep implements Transformation, TaskDependencyContain
     private void isolateTransformerParameters(FileCollectionFingerprinterRegistry fingerprinterRegistry) {
         if (!transformer.isIsolated()) {
             if (!owner.hasMutableState()) {
-                owner.withLenientState(() -> isolateExclusively(fingerprinterRegistry));
+                throw new IllegalStateException("Thread should hold the project lock for " + owningProject);
             } else {
-                isolateExclusively(fingerprinterRegistry);
-            }
-        }
-    }
-
-    private void isolateExclusively(FileCollectionFingerprinterRegistry fingerprinterRegistry) {
-        isolationLock.withLock(() -> {
-            if (!transformer.isIsolated()) {
                 transformer.isolateParameters(fingerprinterRegistry);
             }
-        });
+        }
     }
 
     @Override
