@@ -69,7 +69,6 @@ public class DefaultTransformationRegistrationFactory implements TransformationR
     private final FileLookup fileLookup;
     private final FileCollectionFingerprinterRegistry fileCollectionFingerprinterRegistry;
     private final DomainObjectContext owner;
-    private final ProjectStateRegistry projectRegistry;
     private final InstantiationScheme actionInstantiationScheme;
     private final InstantiationScheme legacyActionInstantiationScheme;
 
@@ -83,7 +82,6 @@ public class DefaultTransformationRegistrationFactory implements TransformationR
         FileLookup fileLookup,
         FileCollectionFingerprinterRegistry fileCollectionFingerprinterRegistry,
         DomainObjectContext owner,
-        ProjectStateRegistry projectRegistry,
         ArtifactTransformParameterScheme parameterScheme,
         ArtifactTransformActionScheme actionScheme,
         ServiceLookup internalServices
@@ -97,7 +95,6 @@ public class DefaultTransformationRegistrationFactory implements TransformationR
         this.fileLookup = fileLookup;
         this.fileCollectionFingerprinterRegistry = fileCollectionFingerprinterRegistry;
         this.owner = owner;
-        this.projectRegistry = projectRegistry;
         this.actionInstantiationScheme = actionScheme.getInstantiationScheme();
         this.actionMetadataStore = actionScheme.getInspectionScheme().getMetadataStore();
         this.legacyActionInstantiationScheme = actionScheme.getLegacyInstantiationScheme();
@@ -161,14 +158,14 @@ public class DefaultTransformationRegistrationFactory implements TransformationR
             actionInstantiationScheme,
             internalServices);
 
-        return new DefaultArtifactTransformRegistration(from, to, new TransformationStep(transformer, transformerInvocationFactory, owner, projectRegistry, fileCollectionFingerprinterRegistry));
+        return new DefaultArtifactTransformRegistration(from, to, new TransformationStep(transformer, transformerInvocationFactory, owner, fileCollectionFingerprinterRegistry));
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public ArtifactTransformRegistration create(ImmutableAttributes from, ImmutableAttributes to, Class<? extends org.gradle.api.artifacts.transform.ArtifactTransform> implementation, Object[] params) {
         Transformer transformer = new LegacyTransformer(implementation, params, legacyActionInstantiationScheme, from, classLoaderHierarchyHasher, isolatableFactory);
-        return new DefaultArtifactTransformRegistration(from, to, new TransformationStep(transformer, transformerInvocationFactory, owner, projectRegistry, fileCollectionFingerprinterRegistry));
+        return new DefaultArtifactTransformRegistration(from, to, new TransformationStep(transformer, transformerInvocationFactory, owner, fileCollectionFingerprinterRegistry));
     }
 
     private static class DefaultArtifactTransformRegistration implements ArtifactTransformRegistration {
