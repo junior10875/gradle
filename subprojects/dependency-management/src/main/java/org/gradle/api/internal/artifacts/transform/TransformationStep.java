@@ -138,6 +138,11 @@ public class TransformationStep implements Transformation, TaskDependencyContain
         return Try.successful(subjectToTransform.createSubjectFromResult(builder.build()));
     }
 
+    @Override
+    public void isolateParameters() {
+        isolateTransformerParameters(globalFingerprinterRegistry);
+    }
+
     private void isolateTransformerParameters(FileCollectionFingerprinterRegistry fingerprinterRegistry) {
         if (!transformer.isIsolated()) {
             if (!owner.hasMutableState()) {
