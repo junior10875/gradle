@@ -19,6 +19,7 @@ package org.gradle.api.internal.initialization;
 import org.gradle.api.internal.DomainObjectContext;
 import org.gradle.api.internal.project.ProjectInternal;
 import org.gradle.internal.Factory;
+import org.gradle.internal.model.CalculatedModelValue;
 import org.gradle.internal.model.ModelContainer;
 import org.gradle.util.Path;
 
@@ -85,5 +86,10 @@ public class RootScriptDomainObjectContext implements DomainObjectContext, Model
     @Override
     public boolean isScript() {
         return true;
+    }
+
+    @Override
+    public <T> CalculatedModelValue<T> newCalculatedValue(@Nullable T initialValue) {
+        throw new UnsupportedOperationException();
     }
 }
