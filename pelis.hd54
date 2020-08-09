@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "740145555719",
+    "firebase_url": "https://pelis-hd-e301c.firebaseio.com",
+    "project_id": "pelis-hd-e301c",
+    "storage_bucket": "pelis-hd-e301c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740145555719:android:dda70221672898ea377da2",
+        "android_client_info": {
+          "package_name": "pelis.hd54"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740145555719-ugb04i4sqq4g3aevpls42rvp3o5hilrj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pelis.hd54",
+            "certificate_hash": "c0b1f20e8a2bb244983c43f05d576e88e19dcd2d"
+          }
+        },
+        {
+          "client_id": "740145555719-jcl58ialmb2tje8n43l6a0ieh0nf97du.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE4tZaz5pBtmgLiRv85gQo7gEu638ny08"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740145555719-jcl58ialmb2tje8n43l6a0ieh0nf97du.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-5227689397481254~3297739961"
+    }
+  ],
+  "configuration_version": "1"
+}buildscript {
+  repositories {
+    // Check that you have the following line (if not, add it):
+  
+    google()  // Google's Maven repository
+  }
+  dependencies {
+    ...
+    // Add this line
+  
+    classpath 'com.google.gms:google-services:4.3.3'
+    ...
+  }
+}
+
+allprojects {
+  ...
+  repositories {
+    // Check that you have the following line (if not, add it):
+  
+    google()  // Google's Maven repository
+  }
+}  
+apply plugin: 'com.android.application'
+// Add this line
+  
+apply plugin: 'com.google.gms.google-services'
+
+dependencies {
+  // add the Firebase SDK for Google Analytics
+  
+  implementation 'com.google.firebase:firebase-analytics:17.4.1'
+  // add SDKs for any other desired Firebase products
+  // https://firebase.google.com/docs/android/setup#available-libraries
+}
