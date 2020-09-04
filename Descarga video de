@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "563455095062",
+    "firebase_url": "https://descarga-video-de.firebaseio.com",
+    "project_id": "descarga-video-de",
+    "storage_bucket": "descarga-video-de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563455095062:android:aa6bc5d4cae6f1fa6aa037",
+        "android_client_info": {
+          "package_name": "descarga.descargavideoymusicayjuegatujueg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "563455095062-247dke43qmcdr80vu6rj1ifkpv0mhe96.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCM1sysC6DPKAokYrp0dJwcMECzquazaNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563455095062-247dke43qmcdr80vu6rj1ifkpv0mhe96.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-7236716354136261~5220289161"
+    }
+  ],
+  "configuration_version": "1"
+}    google()  // Google's Maven repository    classpath 'com.google.gms:google-services:4.3.3'    google()  // Google's Maven repository
+  
+apply plugin: 'com.android.application'
+// Add this line
+  
+apply plugin: 'com.google.gms.google-services'
+
+dependencies {
+  // add the Firebase SDK for Google Analytics
+  
+  implementation 'com.google.firebase:firebase-analytics:17.4.1'
+  // add SDKs for any other desired Firebase products
+  // https://firebase.google.com/docs/android/setup#available-libraries
+}
